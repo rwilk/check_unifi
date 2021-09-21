@@ -1,11 +1,11 @@
 /*-----------------------------------------------------------------------------
-# Name:        CHECK_UNIFI 0.1.1
+# Name:        CHECK_UNIFI 0.1.2
 # Purpose:     Nagios/Icinga checker for UniFi Controller condition
 #
 # Author:      Rafal Wilk <rw@pcboot.pl>
 #
 # Created:     24-06-2021
-# Modified:    27-06-2021
+# Modified:    21-09-2021
 # Copyright:   (c) PcBoot 2021
 # License:     BSD-new
 -----------------------------------------------------------------------------*/
@@ -33,7 +33,7 @@ var args struct {
 
 func main() {
 	if err := arg.Parse(&args); err != nil {
-		fmt.Println("CHECK_UNIFI 0.1.1 for UniFi Controller")
+		fmt.Println("CHECK_UNIFI 0.1.2 for UniFi Controller")
 		fmt.Println("All rights reserved. (c) PcBoot 2021")
 		fmt.Println()
 		arg.MustParse(&args)
@@ -41,6 +41,11 @@ func main() {
 
 	if err := conf.Load(args.ConfFile); err != nil {
 		handlePanic(err)
+	}
+
+	if !conf.TimeRange.InTime() {
+		fmt.Println("UniFi Controller status - OK (skipped)")
+		os.Exit(0)
 	}
 
 	if conf.SkipSSLVerify {

@@ -8,12 +8,13 @@ import (
 )
 
 type Configuration struct {
-	ControllerURL string `json:"controller_url"`
-	Site          string `json:"site"`
-	Username      string `json:"username"`
-	Password      string `json:"password"`
-	SkipSSLVerify bool   `json:"skip_ssl_verify"`
-	Timeout       int    `json:"timeout"`
+	ControllerURL string    `json:"controller_url"`
+	Site          string    `json:"site"`
+	Username      string    `json:"username"`
+	Password      string    `json:"password"`
+	SkipSSLVerify bool      `json:"skip_ssl_verify"`
+	Timeout       int       `json:"timeout"`
+	TimeRange     TimeRange `json:"time_range"`
 }
 
 func (c *Configuration) Load(confFile string) error {

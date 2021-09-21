@@ -4,5 +4,6 @@
 	"username": "admin",
 	"password": "******",
 	"skip_ssl_verify": false,
-	"timeout": 10
+	"timeout": 10,
+	"time_range": "08:00-14:00"
 }
