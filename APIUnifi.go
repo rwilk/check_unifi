@@ -33,7 +33,7 @@ func (api *APIUnifi) Login(ctx context.Context, URL string, user string, passwor
 		api.url = strings.TrimRight(URL, "/")
 	}
 
-	err = api.request(ctx, "POST", api.url+"/api/login", &struct {
+	err = api.request(ctx, "POST", api.url+"/api/auth/login", &struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
 	}{
@@ -53,7 +53,8 @@ func (api *APIUnifi) GetDeviceBasic(ctx context.Context, site string) (err error
 
 	var respBody DeviceBasicResponse
 
-	url := fmt.Sprintf("%s/api/s/%s/stat/device-basic", api.url, site)
+	//url := fmt.Sprintf("%s/api/s/%s/stat/device-basic", api.url, site)
+	url := fmt.Sprintf("%s/proxy/network/api/s/%s/stat/device-basic", api.url, site)
 	err = api.request(ctx, "GET", url, nil, &respBody)
 
 	if err != nil {
